@@ -1,6 +1,6 @@
-================================
+
 Instruções para instalar o Solr
-================================
+
 
 **O servidor do Solr NÃO DEVE SER EXPOSTO NA INTERNET. Assim como o servidor de bancos de dados Postgres ele deve estar acessível pelo SAPL na rede interna (atrás de NATs/firewalls/proxies/etc).**
 
