@@ -21,7 +21,7 @@ django-admin startproject projeto .
 Testando o Servidor de Desenvolvimento
 Dentro da venv:
 sudo ufw allow 8000
-python manage.py runserver 64.227.53.16:8000
+python manage.py runserver 0.0.0.0:8000
 
 http://your_server_ip:8000
 
@@ -54,4 +54,4 @@ DATABASES = {
 Dentro da venv:
 python manage.py makemigrations
 python manage.py migrate
-python manage.py migrate createsuperuser
+python manage.py createsuperuser
