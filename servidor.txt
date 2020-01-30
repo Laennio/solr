@@ -120,3 +120,7 @@ sudo ufw delete allow 8000
 sudo ufw allow 'Nginx Full'
 
 sudo ln -s /etc/nginx/sites-available/projeto /etc/nginx/sites-enabled
+
+ufw allow OpenSSH
+ufw enable
+ufw status
