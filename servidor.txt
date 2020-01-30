@@ -8,15 +8,15 @@ sudo apt install -y python3-pip
 
 pip3 install package_name (caso deseje instalar mais pacote)
 pip3 install Django
-sudo apt install build-essential libssl-dev libffi-dev python3-dev
+sudo apt install build-essential python3-dev libssl-dev libpq-dev libffi-dev postgresql postgresql-contrib python3-dev nginx curl
 sudo apt install -y python3-venv
 django-admin --version
 
 Criar ambiente virtual:
 python3.6 -m venv venv
-source venv/bin/activate
+====>> source venv/bin/activate
 Dentro da venv:
-pip install django
+pip install django gunicorn psycopg2-binary
 django-admin startproject projeto .
 Testando o Servidor de Desenvolvimento
 Dentro da venv:
@@ -24,3 +24,34 @@ sudo ufw allow 8000
 python manage.py runserver 64.227.53.16:8000
 
 http://your_server_ip:8000
+
+
+
+sudo -u postgres psql
+CREATE DATABASE projeto;
+CREATE USER laennio WITH PASSWORD 'password';
+
+ALTER ROLE laennio SET client_encoding TO 'utf8';
+ALTER ROLE laennio SET default_transaction_isolation TO 'read committed';
+ALTER ROLE laennio SET timezone TO 'UTC';
+
+GRANT ALL PRIVILEGES ON DATABASE projeto TO laennio;
+
+settings.py
+ALLOWED_HOSTS = ['64.227.53.16','localhost']
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+DATABASES = {
+    'default': {
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'projeto',
+        'USER': 'laennio',
+        'PASSWORD': '*****',
+        'HOST': 'localhost',
+        'PORT': '',    }
+}
+
+
+Dentro da venv:
+python manage.py makemigrations
+python manage.py migrate
+python manage.py migrate createsuperuser
